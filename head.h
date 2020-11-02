@@ -1,14 +1,39 @@
 #pragma once
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
 using namespace std;
 
-#define NumVertices 5
-typedef char VertexData;
-typedef int EdgeData;
-typedef struct graph {
-	VertexData verlist[NumVertices];
-	EdgeData edge[NumVertices][NumVertices];
-	int n, e;
-}MTGraph;
+#define max 20
 
-void CreateMTGraph(MTGraph* G);
+typedef struct graph {
+	char verlist[max];
+	int edge[max][max];
+	int n, e;
+}MTGraph;//图的邻接矩阵
+
+typedef struct node {
+	int adjvex;
+	int cost;
+	struct node* next;
+}EdgeNode;//边表结点
+
+typedef struct vertexnode{
+	char vertex;
+	EdgeNode* firstedge;
+}VertexNode;//顶点表结点
+
+typedef struct adjgraph{
+	VertexNode vexlist[max];
+	int n, e;
+}AdjGraph;//图的邻接表
+
+MTGraph* createUndigraphByMatrix();
+
+AdjGraph* createUndigraphByList();
+
+void showUndiMatrix(MTGraph* G);
+
+void showUndiList(AdjGraph* G);
+
+void MtToAdj(MTGraph* G1, AdjGraph* G2);
