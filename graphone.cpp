@@ -21,12 +21,18 @@ int main() {
 	}
 	*/
 	cout << "无向图邻接矩阵：" << endl;
-	MTGraph* G = createUndigraphByMatrix();
-	showUndiMatrix(G);
+	MTGraph* G1 = createUndigraphByMatrix();
+	showUndiMatrix(G1);
 	cout << endl;
 	cout << "无向图邻接表：" << endl;
 	AdjGraph* G2 = createUndigraphByList();
 	showUndiList(G2);
+	AdjGraph* G3 = new AdjGraph;
+	MtToAdj(G1,G3);
+	showUndiList(G3);
+	MTGraph* G4 = new MTGraph;
+	AdjToMt(G2, G4);
+	showUndiMatrix(G4);
 
 
 }

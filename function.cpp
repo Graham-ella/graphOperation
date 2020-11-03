@@ -103,5 +103,66 @@ void showUndiList(AdjGraph* G) {
 
 //邻接矩阵转化为邻接表
 void MtToAdj(MTGraph* G1, AdjGraph* G2) {
+	G2->n = G1->n;
+	G2->e = G1->e;
+	for (int i = 0; i < G1->n; i++)
+	{
+		G2->vexlist[i].vertex = G1->verlist[i];
+		G2->vexlist[i].firstedge = NULL;
+	}
+	int tail, head;
+	int k = 0;//对于无向图，它的邻接矩阵是对称的，所以只要读取一半的数据就行
+	for (int i = 0; i < G1->n; i++)
+	{
+		for (int j = k; j < G1->n; j++)
+		{
+			if (G1->edge[i][j] != 0)
+			{
+				tail = i;
+				head = j;
+				EdgeNode* p = new EdgeNode;
+				p->adjvex = head;
+				p->cost = G1->edge[i][j];
+				p->next = G2->vexlist[tail].firstedge;
+				G2->vexlist[tail].firstedge = p;
+				
+				p = new EdgeNode; 
+				p->adjvex = tail;
+				p->cost = G1->edge[j][i];
+				p->next = G2->vexlist[head].firstedge;
+				G2->vexlist[head].firstedge = p;
+			}
+		}
+		k++;
+	}
+}
+
+//邻接表转化为邻接矩阵
+void AdjToMt(AdjGraph* G1, MTGraph* G2) {
+	G2->n = G1->n;
+	G2->e = G1->e;
+	int i, j;
+	for (i = 0; i < G1->n; i++)
+	{
+		for (j = 0; j < G1->n; j++)
+		{
+			G2->edge[i][j] = 0;
+		}
+	}//对邻接矩阵初始化
+	for (i = 0; i <G1->n; i++)
+	{
+		G2->verlist[i] = G1->vexlist[i].vertex;
+	}//对顶点赋值
+	int x, y;
+	EdgeNode* p = new EdgeNode;
+	for (int k = 0; k < G1->n; k++) {
+		x = k;
+		p = G1->vexlist[k].firstedge;
+		while (p != NULL) {
+			y = p->adjvex;
+			G2->edge[x][y] = p->cost;
+			p = p->next;
+		}
+	}
 
 }

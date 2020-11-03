@@ -37,3 +37,5 @@ void showUndiMatrix(MTGraph* G);
 void showUndiList(AdjGraph* G);
 
 void MtToAdj(MTGraph* G1, AdjGraph* G2);
+
+void AdjToMt(AdjGraph* G1, MTGraph* G2);
