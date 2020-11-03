@@ -39,3 +39,11 @@ void showUndiList(AdjGraph* G);
 void MtToAdj(MTGraph* G1, AdjGraph* G2);
 
 void AdjToMt(AdjGraph* G1, MTGraph* G2);
+
+void DFSTraverse1(MTGraph* G);
+
+void DFS1(MTGraph* G, int i);
+
+void DFSTraverse2(AdjGraph* G);
+
+void DFS2(AdjGraph* G, int i);

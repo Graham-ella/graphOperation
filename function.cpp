@@ -166,3 +166,67 @@ void AdjToMt(AdjGraph* G1, MTGraph* G2) {
 	}
 
 }
+
+//深度优先遍历主算法
+bool visited[max];
+int dfn[max] = { -1 };
+int countNumber = 1;
+
+void DFSTraverse1(MTGraph* G) {//邻接矩阵
+	int i;
+	countNumber = 1;
+	for (i = 0; i < G->n; i++) {
+		visited[i] = false;
+	}
+	for (i = G->n; i < max; i++) {
+		visited[i] = true;
+	}
+	for (i = 0; i < G->n; i++) {
+		if (!visited[i]) {
+			DFS1(G, i);
+		}
+	}
+}
+
+void DFS1(MTGraph* G, int i) {//邻接矩阵
+	int j;
+	cout << G->verlist[i];
+	visited[i] = true;
+	dfn[i] = countNumber;
+	countNumber++;
+	for (j = 0; j < G->n; j++) {
+		if ((G->edge[i][j] == 1) && !visited[j]) {
+			DFS1(G, j);
+		}
+	}
+}
+
+void DFSTraverse2(AdjGraph* G) {//邻接表
+	int i;
+	countNumber = 1;
+	for (i = 0; i < G->n; i++) {
+		visited[i] = false;
+	}
+	for (i = G->n; i < max; i++) {
+		visited[i] = true;
+	}
+	for (i = 0; i < G->n; i++) {
+		if (!visited[i]) {
+			DFS2(G, i);
+		}
+	}
+}
+
+void DFS2(AdjGraph* G, int i) {
+	EdgeNode* p;
+	cout << G->vexlist[i].vertex;
+	visited[i] = true;
+	dfn[i] = countNumber++;
+	p = G->vexlist[i].firstedge;
+	while (p) {
+		if (!visited[p->adjvex]) {
+			DFS2(G, p->adjvex);
+		}
+		p = p->next;
+	}
+}
