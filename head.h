@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+
 using namespace std;
 
 #define max 20
@@ -28,6 +29,24 @@ typedef struct adjgraph{
 	int n, e;
 }AdjGraph;//Í¼µÄÁÚ½Ó±í
 
+
+typedef int ElemType;
+struct celltype {
+	ElemType data;
+	celltype* next;
+};
+struct QUEUE {
+	celltype* front;
+	celltype* rear;
+};
+
+void MAKENULL(QUEUE& Q);
+bool EMPTY(QUEUE Q);
+ElemType FRONT(QUEUE Q);
+void EnQueue(ElemType x, QUEUE& Q);
+void DeQueue(QUEUE& Q);
+
+
 MTGraph* createUndigraphByMatrix();
 
 AdjGraph* createUndigraphByList();
@@ -47,3 +66,11 @@ void DFS1(MTGraph* G, int i);
 void DFSTraverse2(AdjGraph* G);
 
 void DFS2(AdjGraph* G, int i);
+
+void BFSTraverse1(MTGraph* G);
+
+void BFS1(MTGraph* G, int k);
+
+void BFSTraverse2(AdjGraph* G);
+
+void BFS2(AdjGraph* G, int k);

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="function.cpp" />
     <ClCompile Include="graphone.cpp" />
+    <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Stack.cpp" />
   </ItemGroup>
   <ItemGroup>
