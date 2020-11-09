@@ -46,6 +46,16 @@ ElemType FRONT(QUEUE Q);
 void EnQueue(ElemType x, QUEUE& Q);
 void DeQueue(QUEUE& Q);
 
+struct stackNode {
+	ElemType data;
+	stackNode* next;
+};
+typedef stackNode* STACK;
+STACK MakeNull();
+bool Empty(STACK stk);
+void Push(ElemType elm, STACK stk);
+void Pop(STACK stk);
+ElemType Top(STACK stk);
 
 MTGraph* createUndigraphByMatrix();
 
@@ -74,3 +84,11 @@ void BFS1(MTGraph* G, int k);
 void BFSTraverse2(AdjGraph* G);
 
 void BFS2(AdjGraph* G, int k);
+
+void DFSNoRecurTraverse1(MTGraph* G);
+
+void DFSNoRecur1(AdjGraph* G,int i);
+
+void DFSNoRecurTraverse2(AdjGraph* G);
+
+void DFSNoRecur2(MTGraph* G, int i);

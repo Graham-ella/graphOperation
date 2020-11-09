@@ -252,6 +252,7 @@ void BFSTraverse1(MTGraph* G) {
 			BFS1(G, i);
 		}
 	}
+	cout << endl;
 }
 
 void BFS1(MTGraph* G, int k) {
@@ -290,6 +291,7 @@ void BFSTraverse2(AdjGraph* G) {
 			BFS2(G, i);
 		}
 	}
+	cout << endl;
 }
 
 void BFS2(AdjGraph* G,int k) {
@@ -313,6 +315,92 @@ void BFS2(AdjGraph* G,int k) {
 				EnQueue(p->adjvex, Q);
 			}
 			p = p->next;
+		}
+	}
+}
+
+//深度优先遍历主算法（非递归）
+bool visited3[max];
+int dfn3[max] = { -1 };
+int countNumber3 = 1;
+
+void DFSNoRecurTraverse1(MTGraph* G) {
+	AdjGraph* newG = new AdjGraph;
+	MtToAdj(G, newG);
+	int i;
+	countNumber3 = 1;
+	for (i = 0; i < G->n; i++) {
+		visited3[i] = false;
+	}
+	for (i = G->n; i < max; i++) {
+		visited3[i] = true;
+	}
+	for (i = 0; i < G->n; i++) {
+		if (!visited3[i]) {//如果没被访问过，从该结点遍历
+			DFSNoRecur1(newG, i);
+		}
+	}
+	cout << endl;
+}
+
+void DFSNoRecur1(AdjGraph* G, int i) {
+	int k;
+	EdgeNode* p = new EdgeNode;
+	STACK S = MakeNull();
+	Push(i, S);
+	while (!Empty(S)) {
+		k = Top(S);
+		Pop(S);
+		cout << G->vexlist[k].vertex;
+		dfn3[k] = countNumber3;
+		countNumber3++;
+		visited3[k] = true;
+		p = G->vexlist[k].firstedge;
+		while (p) {
+			if (!visited3[p->adjvex]) {
+				Push(p->adjvex, S);
+				visited3[p->adjvex] = true;
+			}
+			p = p->next;
+		}
+	}
+}
+
+void DFSNoRecurTraverse2(AdjGraph* G) {
+	MTGraph* newG = new MTGraph;
+	AdjToMt(G, newG);
+	int i;
+	countNumber3 = 1;
+	for (i = 0; i < G->n; i++) {
+		visited3[i] = false;
+	}
+	for (i = G->n; i < max; i++) {
+		visited3[i] = true;
+	}
+	for (i = 0; i < G->n; i++) {
+		if (!visited3[i]) {//如果没被访问过，从该结点遍历
+			DFSNoRecur2(newG, i);
+		}
+	}
+	cout << endl;
+}
+
+void DFSNoRecur2(MTGraph* G, int i) {
+	STACK S = MakeNull();
+	Push(i, S);
+	int k;
+	while (!Empty(S)) {
+		k = Top(S);
+		Pop(S);
+		cout << G->verlist[k];
+		dfn3[k] = countNumber3;
+		countNumber3++;
+		visited3[k] = true;
+		for (int m = 0; m < G->n; m++) {
+			if ((G->edge[k][m] != 0) && !visited3[m]) {
+				Push(m, S);
+				visited3[m] = true;
+			}
 		}
 	}
 }
