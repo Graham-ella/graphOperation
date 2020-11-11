@@ -92,3 +92,14 @@ void DFSNoRecur1(AdjGraph* G,int i);
 void DFSNoRecurTraverse2(AdjGraph* G);
 
 void DFSNoRecur2(MTGraph* G, int i);
+
+void showMenu();
+
+MTGraph* createDigraphByMatrix();
+
+AdjGraph* createDigraphByList();
+
+void MtToAdj2(MTGraph* DG1, AdjGraph* DG2);
+
+void AdjToMt2(AdjGraph* DG1, MTGraph* DG2);
+
