@@ -195,11 +195,25 @@ void DFSTraverse1(MTGraph* G) {//邻接矩阵
 		cout << " ";
 	}
 	cout << endl;
+	ofstream ofs;
+	ofs.open("DFSMT.txt", ios::app);
+	int k = 0;
+	cout << "对应的深度优先遍历编号如下:" << endl;
+	while (k<G->n){
+		cout << G->verlist[k] << ":" << dfn1[k] << endl;
+		ofs << G->verlist[k] << ":" << dfn1[k] << endl;
+		k++;
+	}
+	ofs.close();
 }
 
 void DFS1(MTGraph* G, int i) {//邻接矩阵
+	ofstream ofs;
+	ofs.open("DFSMT.txt", ios::app);
 	int j;
 	cout << G->verlist[i];
+	ofs << G->verlist[i]<<endl;//将顶点写入文件中
+	ofs.close();
 	visited1[i] = true;
 	dfn1[i] = countNumber1;
 	countNumber1++;
@@ -226,11 +240,25 @@ void DFSTraverse2(AdjGraph* G) {//邻接表
 		cout << " ";
 	}
 	cout << endl;
+	ofstream ofs;
+	ofs.open("DFSAdj.txt", ios::app);
+	int k = 0;
+	cout << "对应的深度优先遍历编号如下:" << endl;
+	while (k < G->n) {
+		cout << G->vexlist[k].vertex << ":" << dfn1[k] << endl;
+		ofs<< G->vexlist[k].vertex << ":" << dfn1[k] << endl;
+		k++;
+	}
+	ofs.close();
 }
 
 void DFS2(AdjGraph* G, int i) {//邻接表
+	ofstream ofs;
+	ofs.open("DFSAdj.txt", ios::app);
 	EdgeNode* p;
 	cout << G->vexlist[i].vertex;
+	ofs << G->vexlist[i].vertex<< endl;//将顶点写入文件中
+	ofs.close();
 	visited1[i] = true;
 	dfn1[i] = countNumber1++;
 	p = G->vexlist[i].firstedge;
@@ -263,13 +291,29 @@ void BFSTraverse1(MTGraph* G) {
 		cout << " ";
 	}
 	cout << endl;
+	ofstream ofs;
+	ofs.open("BFSMT.txt", ios::app);
+	int k = 0;
+	cout << "对应的广度优先遍历编号如下:" << endl;
+	while (k < G->n) {
+		cout << G->verlist[k] << ":" << dfn2[k] << endl;
+		ofs << G->verlist[k] << ":" << dfn2[k] << endl;
+		k++;
+	}
+	ofs.close();
+
+
 }
 
 void BFS1(MTGraph* G, int k) {
+	ofstream ofs;
+	ofs.open("BFSMT.txt", ios::app);
 	int i, j;
 	QUEUE Q;
 	MAKENULL(Q);
 	cout << G->verlist[k];//访问vk
+	ofs << G->verlist[k] << endl;//将顶点写入文件中
+	
 	visited2[k] = true;
 	dfn2[k] = countNumber2;
 	countNumber2++;
@@ -280,11 +324,15 @@ void BFS1(MTGraph* G, int k) {
 		for (j = 0; j < G->n; j++) {
 			if (G->edge[i][j] == 1 && !visited2[j]) {
 				cout << G->verlist[j];
+				ofs << G->verlist[j] << endl;
 				visited2[j] = true;
+				dfn2[j] = countNumber2;
+				countNumber2++;
 				EnQueue(j, Q);
 			}
 		}
 	}//外层循环，判断队列空否
+	ofs.close();
 }
 
 void BFSTraverse2(AdjGraph* G) {
@@ -303,14 +351,27 @@ void BFSTraverse2(AdjGraph* G) {
 		cout << " ";
 	}
 	cout << endl;
+	ofstream ofs;
+	ofs.open("BFSAdj.txt", ios::app);
+	int k = 0;
+	cout << "对应的广度优先遍历编号如下:" << endl;
+	while (k < G->n) {
+		cout << G->vexlist[k].vertex << ":" << dfn2[k] << endl;
+		ofs << G->vexlist[k].vertex << ":" << dfn2[k] << endl;
+		k++;
+	}
+	ofs.close();
 }
 
 void BFS2(AdjGraph* G,int k) {
+	ofstream ofs;
+	ofs.open("BFSAdj.txt", ios::app);
 	int i;
 	EdgeNode* p;
 	QUEUE Q;
 	MAKENULL(Q);
 	cout << G->vexlist[k].vertex;
+	ofs << G->vexlist[k].vertex << endl;//将顶点写入文件中
 	visited2[k] = true;
 	dfn2[k] = countNumber2;
 	countNumber2++;
@@ -322,12 +383,16 @@ void BFS2(AdjGraph* G,int k) {
 		while (p) {
 			if (!visited2[p->adjvex]) {
 				cout << G->vexlist[p->adjvex].vertex;
+				ofs << G->vexlist[p->adjvex].vertex << endl;
+				dfn2[p->adjvex] = countNumber2;
+				countNumber2++;
 				visited2[p->adjvex] = true;
 				EnQueue(p->adjvex, Q);
 			}
 			p = p->next;
 		}
 	}
+	ofs.close();
 }
 
 //深度优先遍历主算法（非递归）
@@ -337,7 +402,8 @@ int countNumber3 = 1;
 
 void DFSNoRecurTraverse1(MTGraph* G) {
 	AdjGraph* newG = new AdjGraph;
-	MtToAdj(G, newG);
+	//MtToAdj(G, newG);
+	newG = createDigraphByList();
 	int i;
 	countNumber3 = 1;
 	for (i = 0; i < G->n; i++) {
@@ -353,9 +419,24 @@ void DFSNoRecurTraverse1(MTGraph* G) {
 		cout << " ";
 	}
 	cout << endl;
+
+	ofstream ofs;
+	ofs.open("DFSMTNoRecur.txt", ios::app);
+	int k = 0;
+	cout << "对应的深度优先遍历编号如下:" << endl;
+	while (k < G->n) {
+		cout << G->verlist[k] << ":" << dfn3[k] << endl;
+		ofs << G->verlist[k] << ":" << dfn3[k] << endl;
+		k++;
+	}
+	ofs.close();
 }
 
 void DFSNoRecur1(AdjGraph* G, int i) {
+	
+	ofstream ofs;
+	ofs.open("DFSMTNoRecur.txt", ios::app);
+
 	int k;
 	EdgeNode* p = new EdgeNode;
 	STACK S = MakeNull();
@@ -364,6 +445,7 @@ void DFSNoRecur1(AdjGraph* G, int i) {
 		k = Top(S);
 		Pop(S);
 		cout << G->vexlist[k].vertex;
+		ofs << G->vexlist[k].vertex << endl;
 		dfn3[k] = countNumber3;
 		countNumber3++;
 		visited3[k] = true;
@@ -376,6 +458,33 @@ void DFSNoRecur1(AdjGraph* G, int i) {
 			p = p->next;
 		}
 	}
+	ofs.close();
+	/*
+	EdgeNode* p = new EdgeNode;
+	QUEUE Q;
+	MAKENULL(Q);
+	cout << G->vexlist[i].vertex;
+	visited3[i] = true;
+	dfn3[i] = countNumber3;
+	countNumber3++;
+	EnQueue(i, Q);
+	int k;
+	while (!EMPTY(Q)) {
+		k = FRONT(Q);
+		DeQueue(Q);
+		p = G->vexlist[k].firstedge;
+		while (p) {
+			if (!visited3[p->adjvex]) {
+				cout << G->vexlist[p->adjvex].vertex;
+				dfn3[p->adjvex] = countNumber3;
+				countNumber3++;
+				visited3[p->adjvex] = true;
+				EnQueue(p->adjvex, Q);
+			}
+			p = p->next;
+		}
+	}
+	*/
 }
 
 void DFSNoRecurTraverse2(AdjGraph* G) {
@@ -396,9 +505,23 @@ void DFSNoRecurTraverse2(AdjGraph* G) {
 		cout << " ";
 	}
 	cout << endl;
+	
+	ofstream ofs;
+	ofs.open("DFSAdjNoRecur.txt", ios::app);
+	int k = 0;
+	cout << "对应的深度优先遍历编号如下:" << endl;
+	while (k < G->n) {
+		cout << G->vexlist[k].vertex << ":" << dfn3[k] << endl;
+		ofs << G->vexlist[k].vertex << ":" << dfn3[k] << endl;
+		k++;
+	}
+	ofs.close();
 }
 
 void DFSNoRecur2(MTGraph* G, int i) {
+	ofstream ofs;
+	ofs.open("DFSAdjNoRecur.txt", ios::app);
+
 	STACK S = MakeNull();
 	Push(i, S);
 	int k;
@@ -406,6 +529,7 @@ void DFSNoRecur2(MTGraph* G, int i) {
 		k = Top(S);
 		Pop(S);
 		cout << G->verlist[k];
+		ofs << G->verlist[k] << endl;
 		dfn3[k] = countNumber3;
 		countNumber3++;
 		visited3[k] = true;
@@ -416,6 +540,31 @@ void DFSNoRecur2(MTGraph* G, int i) {
 			}
 		}
 	}
+	
+	ofs.close();
+
+	/*
+	EdgeNode* p = new EdgeNode;
+	QUEUE Q;
+	MAKENULL(Q);
+	cout << G->verlist[i];
+	visited3[i] = true;
+	dfn3[i] = countNumber3;
+	countNumber3++;
+	EnQueue(i, Q);
+	int k;
+	while (!EMPTY(Q)) {
+		k = FRONT(Q);
+		DeQueue(Q);
+		for (int m = 0; m < G->n; m++) {
+			if ((G->edge[k][m] != 0) && !visited3[m]) {
+				cout << G->verlist[m];
+				EnQueue(m, Q);
+				visited3[m] = true;
+			}
+		}
+	}
+	*/
 }
 
 
