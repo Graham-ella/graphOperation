@@ -402,8 +402,8 @@ int countNumber3 = 1;
 
 void DFSNoRecurTraverse1(MTGraph* G) {
 	AdjGraph* newG = new AdjGraph;
-	//MtToAdj(G, newG);
-	newG = createDigraphByList();
+	MtToAdj2(G, newG);
+	//newG = createDigraphByList();
 	int i;
 	countNumber3 = 1;
 	for (i = 0; i < G->n; i++) {
@@ -489,7 +489,7 @@ void DFSNoRecur1(AdjGraph* G, int i) {
 
 void DFSNoRecurTraverse2(AdjGraph* G) {
 	MTGraph* newG = new MTGraph;
-	AdjToMt(G, newG);
+	AdjToMt2(G, newG);
 	int i;
 	countNumber3 = 1;
 	for (i = 0; i < G->n; i++) {
